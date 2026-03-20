@@ -9,9 +9,13 @@ class FeRAMMemory:
         # mode: nonvolatile or volatile
         self.mode = ["nonvolatile"] * num_blocks
 
-    def write(self, block_id):
+    def write(self, block_id):      # this takes too long, so better to use write_bulk()
         if self.mode[block_id] == "nonvolatile":
             self.write_count[block_id] += 1
+
+    def write_bulk(self, block_id, count):
+        if self.mode[block_id] == "nonvolatile":
+            self.write_count[block_id] += count
 
     def is_failed(self):
         for w in self.write_count:
