@@ -27,18 +27,15 @@ class Simulator:
         print(accesses)
 
         while not self.memory.is_failed():
-
             for writes in accesses:
+                writes = writes * 3 # training memory access ~ 3 x inference memory access
                 block = random.randint(0, NUM_BLOCKS-1)
-                self.memory.write_bulk(block, writes)
-                # for _ in range(writes):
-                #     block = random.randint(0, 1023) # Pick a random block
-                #     self.memory.write(block)
+                self.memory.write_bulk(block, writes*100)   # 1 training is 100 epochs in the paper
 
             wear_level(self.memory)
 
             trainings += 1
-            if trainings > 1000:
-                break
+            # if trainings > 1000:
+            #     break
 
         return trainings

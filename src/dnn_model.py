@@ -40,7 +40,7 @@ class DNNModel:
         for layer in self.model.modules():
             hooks.append(layer.register_forward_hook(hook_fn))
 
-        # dummy input (ImageNet/CIFAR-10)
+        # dummy input ImageNet/ CIFAR-10(1, 3, 32, 32)
         x = torch.randn(1, 3, 224, 224)
         self.model(x)
 
